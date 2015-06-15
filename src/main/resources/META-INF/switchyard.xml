@@ -16,8 +16,8 @@
       </soap:binding.soap>
     </sca:service>
     <sca:component name="VendaServiceBean">
-      <bean:implementation.bean class="com.example.mercearia.VendaServiceBean"/>
-      <sca:service name="VendaService">
+      <bean:implementation.bean requires="authorization" class="com.example.mercearia.VendaServiceBean"/>
+      <sca:service name="VendaService" requires="clientAuthentication">
         <sca:interface.java interface="com.example.mercearia.VendaService"/>
       </sca:service>
       <sca:reference name="PessoaService">
