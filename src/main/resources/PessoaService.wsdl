@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="PessoaService" targetNamespace="urn:com.example.mercearia:mercearia:1.0" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="urn:com.example.mercearia:mercearia:1.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:com.example.mercearia:mercearia:1.0" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="urn:com.example.mercearia:mercearia:1.0">
+  <xs:element name="pessoa" type="tns:pessoa"/>
+  <xs:complexType name="pessoa">
+    <xs:sequence>
+      <xs:element name="idade" type="xs:int"/>
+      <xs:element minOccurs="0" name="nome" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="gravar" type="tns:gravar"/>
+  <xs:complexType name="gravar">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="pessoa" type="tns:pessoa"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="gravar">
+    <wsdl:part name="parameters" element="tns:gravar">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="PessoaServicePortType">
+    <wsdl:operation name="gravar">
+      <wsdl:input name="gravar" message="tns:gravar">
+    </wsdl:input>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PessoaServiceSoapBinding" type="tns:PessoaServicePortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="gravar">
+      <soap:operation soapAction="gravar" style="document"/>
+      <wsdl:input name="gravar">
+        <soap:body use="literal"/>
+      </wsdl:input>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PessoaService">
+    <wsdl:port name="PessoaServicePort" binding="tns:PessoaServiceSoapBinding">
+      <soap:address location="http://localhost:8080/mercearia/PessoaService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
